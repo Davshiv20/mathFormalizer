@@ -63,9 +63,10 @@ const MathInput = () => {
         className="w-full p-2 border rounded mb-4"
         value={input}
         onChange={handleInputChange}
-        placeholder="Enter your math problem"
-        rows="4"
+        placeholder="Enter your math problem question"
+        rows="2"
       />
+
       <div className="flex justify-between mb-4">
         <button
           onClick={() => setShowCamera(!showCamera)}

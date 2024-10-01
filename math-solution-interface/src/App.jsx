@@ -14,7 +14,7 @@ function App() {
         <div className="w-5/6 bg-white rounded-lg shadow-lg p-6 flex gap-1 h-[90%]">
           <div className="w-2/5">
             <MathInput />
-            <div className="mt-4">
+            <div className="mt-4 flex justify-center">
               <ConvertButton />
             </div>
           </div>

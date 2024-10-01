@@ -67,18 +67,18 @@ const StructuredSolution = () => {
   if (isLoading) return <p>Processing...</p>;
   if (error) return <p>Error: {error}</p>;
   // if (!structuredSolution) return null;
-
+  // console.log(structuredSolution);
   return (
     <div className="h-[95%]">
-      {/* <pre>{structuredSolution}</pre> */}
       <div className="h-[90%] overflow-x-scroll">
-        {data.map((step, index) => (
+        <pre>{structuredSolution}</pre>
+        {/* {data.map((step, index) => (
           <SingleStep
             key={index}
             description={step.description}
             expression={step.expression}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );
