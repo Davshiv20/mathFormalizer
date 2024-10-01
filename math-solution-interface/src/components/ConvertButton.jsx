@@ -7,9 +7,11 @@ const ConvertButton = () => {
   const input = useSelector((state) => state.math.input);
 
   return (
-    <button onClick={() => dispatch(processSolution(input))} disabled={!input}>
-      Convert
+    // <div className='bg-green-600 rounded-full'>
+    <button className='bg-green-500 rounded-full text-justify items-center' onClick={() => dispatch(processSolution(input))} disabled={!input}>
+      <div className='px-4 py-2'>Convert</div>
     </button>
+    // </div>
   );
 };
 

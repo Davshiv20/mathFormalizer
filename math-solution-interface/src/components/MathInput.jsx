@@ -7,8 +7,9 @@ const MathInput = () => {
   const input = useSelector((state) => state.math.input);
 
   return (
-    <textarea
+    <input
       value={input}
+      className='border-grey px-4 py-4 border-2 rounded-md'
       onChange={(e) => dispatch(setInput(e.target.value))}
       placeholder="Enter your math problem or solution"
     />
