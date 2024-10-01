@@ -16,6 +16,7 @@ export const processSolution = createAsyncThunk(
 const mathSlice = createSlice({
   name: 'math',
   initialState: {
+    question: '',
     input: '',
     structuredSolution: null,
     isLoading: false,
@@ -24,6 +25,9 @@ const mathSlice = createSlice({
   reducers: {
     setInput: (state, action) => {
       state.input = action.payload;
+    },
+    setQuestion: (state, action) => {
+      state.question = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -43,5 +47,5 @@ const mathSlice = createSlice({
   },
 });
 
-export const { setInput } = mathSlice.actions;
+export const { setInput, setQuestion } = mathSlice.actions;
 export default mathSlice.reducer;

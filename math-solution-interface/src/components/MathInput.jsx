@@ -1,18 +1,22 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInput, processSolution } from '../features/mathSlice';
+import { setInput, setQuestion, processSolution } from '../features/mathSlice';
 import { Camera } from 'react-camera-pro';
 import { Camera as CameraIcon, Upload, X } from 'lucide-react';
 import axios from 'axios';
 
 const MathInput = () => {
   const dispatch = useDispatch();
-  const { input, isLoading, structuredSolution, error } = useSelector((state) => state.math);
+  const { input, question, isLoading, structuredSolution, error } = useSelector((state) => state.math);
   const [showCamera, setShowCamera] = useState(false);
   const [isCaptureLoading, setIsCaptureLoading] = useState(false);
   const camera = useRef(null);
 
-  const handleInputChange = (e) => {
+  const handleQuestionChange = (e) => {
+    dispatch(setQuestion(e.target.value));
+  };
+
+  const handleAnswerChange = (e) => {
     dispatch(setInput(e.target.value));
   };
 
@@ -23,7 +27,6 @@ const MathInput = () => {
   const processMathPix = async (imageData) => {
     setIsCaptureLoading(true);
     try {
-      // Replace with your actual backend endpoint that interfaces with MathPix
       const response = await axios.post('http://localhost:3001/api/mathpix', { image: imageData });
       dispatch(setInput(input + ' ' + response.data.latex));
     } catch (error) {
@@ -52,14 +55,19 @@ const MathInput = () => {
   };
 
   return (
-    // <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-    //   <h1 className="text-4xl font-bold text-blue-600 mb-8">Math Solution Interface</h1>
     <div className="bg-white p-8 rounded-lg w-full max-w-md">
       <textarea
         className="w-full p-2 border rounded mb-4"
-        value={input}
-        onChange={handleInputChange}
+        value={question}
+        onChange={handleQuestionChange}
         placeholder="Enter your math problem question"
+        rows="2"
+      />
+      <textarea
+        className="w-full p-2 border rounded mb-4"
+        value={input}
+        onChange={handleAnswerChange}
+        placeholder="Enter or capture the answer here"
         rows="2"
       />
 
@@ -71,7 +79,7 @@ const MathInput = () => {
           <CameraIcon size={20} className="mr-2" />
           {showCamera ? "Hide Camera" : "Show Camera"}
         </button>
-        <label className="flex items-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer">
+        <label className="flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600 cursor-pointer">
           <Upload size={20} className="mr-2" />
           Upload Image
           <input
@@ -101,21 +109,13 @@ const MathInput = () => {
         </div>
       )}
       {/* <button
-          onClick={handleConvert}
-          disabled={isLoading || !input}
-          className="w-full py-2 bg-purple-500 text-white rounded hover:bg-purple-600 disabled:bg-gray-300"
-        >
-          {isLoading ? 'Converting...' : 'Convert'}
-        </button> */}
+        onClick={handleConvert}
+        disabled={isLoading || !input}
+        className="w-full py-2 bg-purple-500 text-white rounded hover:bg-purple-600 disabled:bg-gray-300"
+      >
+        {isLoading ? 'Converting...' : 'Convert'}
+      </button> */}
     </div>
-    //   {error && <p className="text-red-500 mt-4">{error}</p>}
-    //   {structuredSolution && (
-    //     <div className="mt-8 bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    //       <h2 className="text-2xl font-bold mb-4">Structured Solution:</h2>
-    //       <pre className="whitespace-pre-wrap">{structuredSolution}</pre>
-    //     </div>
-    //   )}
-    // </div>
   );
 };
 
