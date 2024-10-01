@@ -27,7 +27,7 @@ app.post("/api/process-math", async (req, res) => {
         },
         {
           role: "user",
-          content: `Process this math problem and provide a structured solution in form of json collection where each document represents a step in the solution and the fields should be step, then description and then an equation representing the description : ${input}`,
+          content: `Process this math problem and provide a structured solution in form of json collection where each document represents a step in the solution and the fields should be step, then description and then an equation representing the description : ${input}. Give only an array of json documents in which each document contains step, description and equation.`,
         },
       ],
     });
