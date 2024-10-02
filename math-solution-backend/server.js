@@ -16,13 +16,9 @@ const openai = new OpenAI({
 app.post("/api/process-math", async (req, res) => {
   try {
     const { input } = req.body;
-  
+
     const completion = await openai.chat.completions.create({
-<<<<<<< HEAD
-      model: "gpt-3.5-turbo",
-=======
       model: "gpt-4o",
->>>>>>> add080d84d3d5454a9d10e8d32d018bb8770e312
       messages: [
         {
           role: "system",
@@ -35,7 +31,6 @@ app.post("/api/process-math", async (req, res) => {
         },
       ],
     });
-    console.log(input);
     console.log(completion.choices[0].message.content);
     res.json({ solution: completion.choices[0].message.content });
   } catch (error) {
