@@ -8,7 +8,7 @@ const StructuredSolution = () => {
   );
 
   if (isLoading) return <p>Processing...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {error}</p>;  
   console.log(structuredSolution);
   return (
     <div className="h-[95%]">
