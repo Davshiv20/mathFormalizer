@@ -1,23 +1,28 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { processMathSolution } from '../services/api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { processMathSolution } from "../services/api";
 
 export const processSolution = createAsyncThunk(
-  'math/processSolution',
+  "math/processSolution",
   async (input, { rejectWithValue }) => {
     try {
       const response = await processMathSolution(input);
-      return response.solution;
+      // console.log(JSON.parse(response.solution));
+      return JSON.parse(response.solution);
     } catch (error) {
-      return rejectWithValue(error.response ? error.response.data : 'An error occurred');
+      return rejectWithValue(
+        error.response
+          ? error.response.data
+          : "An error occurred Please try again"
+      );
     }
   }
 );
 
 const mathSlice = createSlice({
-  name: 'math',
+  name: "math",
   initialState: {
-    question: '',
-    input: '',
+    question: "",
+    input: "",
     structuredSolution: null,
     isLoading: false,
     error: null,

@@ -9,12 +9,12 @@ const StructuredSolution = () => {
 
   if (isLoading) return <p>Processing...</p>;
   if (error) return <p>Error: {error}</p>;
-  console.log(structuredSolution);
+  // console.log(structuredSolution);
   return (
     <div className="h-[95%]">
       <div className="h-[90%] overflow-x-scroll">
         {structuredSolution &&
-          JSON.parse(structuredSolution).map((step, index) => (
+          structuredSolution.map((step, index) => (
             <SingleStep
               key={index}
               description={step.description}
