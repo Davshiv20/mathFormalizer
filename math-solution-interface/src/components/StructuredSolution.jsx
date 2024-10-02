@@ -11,8 +11,8 @@ const StructuredSolution = () => {
   if (error) return <p>Error: {error}</p>;
   // console.log(structuredSolution);
   return (
-    <div className="h-[95%]">
-      <div className="h-[90%] overflow-x-scroll">
+    <div className="lg:h-[95%]">
+      <div className="lg:h-[90%] lg:overflow-x-scroll">
         {structuredSolution &&
           structuredSolution.map((step, index) => (
             <SingleStep

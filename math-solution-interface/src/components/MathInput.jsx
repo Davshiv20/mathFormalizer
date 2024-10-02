@@ -1,13 +1,15 @@
-import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setInput, setQuestion, processSolution } from '../features/mathSlice';
-import { Camera } from 'react-camera-pro';
-import { Camera as CameraIcon, Upload, X } from 'lucide-react';
-import axios from 'axios';
+import React, { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setInput, setQuestion, processSolution } from "../features/mathSlice";
+import { Camera } from "react-camera-pro";
+import { Camera as CameraIcon, Upload, X } from "lucide-react";
+import axios from "axios";
 
 const MathInput = () => {
   const dispatch = useDispatch();
-  const { input, question, isLoading, structuredSolution, error } = useSelector((state) => state.math);
+  const { input, question, isLoading, structuredSolution, error } = useSelector(
+    (state) => state.math
+  );
   const [showCamera, setShowCamera] = useState(false);
   const [isCaptureLoading, setIsCaptureLoading] = useState(false);
   const camera = useRef(null);
@@ -27,10 +29,12 @@ const MathInput = () => {
   const processMathPix = async (imageData) => {
     setIsCaptureLoading(true);
     try {
-      const response = await axios.post('http://localhost:3001/api/mathpix', { image: imageData });
-      dispatch(setInput(input + ' ' + response.data.latex));
+      const response = await axios.post("http://localhost:3001/api/mathpix", {
+        image: imageData,
+      });
+      dispatch(setInput(input + " " + response.data.latex));
     } catch (error) {
-      console.error('MathPix processing failed:', error);
+      console.error("MathPix processing failed:", error);
       // Handle error (e.g., show a notification to the user)
     }
     setIsCaptureLoading(false);
@@ -55,7 +59,7 @@ const MathInput = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg w-full max-w-md">
+    <div className="bg-white p-8 pb-2 rounded-lg w-full">
       <textarea
         className="w-full p-2 border rounded mb-4"
         value={question}
@@ -71,7 +75,7 @@ const MathInput = () => {
         rows="2"
       />
 
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 gap-3">
         <button
           onClick={() => setShowCamera(!showCamera)}
           className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
