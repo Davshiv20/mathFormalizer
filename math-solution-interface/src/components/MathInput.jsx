@@ -59,20 +59,20 @@ const MathInput = () => {
   };
 
   return (
-    <div className="bg-white p-8 pb-2 rounded-lg w-full">
+    <div className="bg-white p-8 pb-2 rounded-lg w-full h-[85%] overflow-x-auto">
       <textarea
-        className="w-full p-2 border rounded mb-4"
+        className="w-full p-2 border rounded mb-4 shadow-md"
         value={question}
         onChange={handleQuestionChange}
         placeholder="Enter your math problem question"
         rows="2"
       />
       <textarea
-        className="w-full p-2 border rounded mb-4"
+        className="w-full p-2 border rounded mb-4 shadow-md"
         value={input}
         onChange={handleAnswerChange}
         placeholder="Enter or capture the answer here"
-        rows="2"
+        rows="3"
       />
 
       <div className="flex justify-between mb-4 gap-3">
@@ -83,7 +83,7 @@ const MathInput = () => {
           <CameraIcon size={20} className="mr-2" />
           {showCamera ? "Hide Camera" : "Show Camera"}
         </button>
-        <label className="flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600 cursor-pointer">
+        <label className="flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-800 cursor-pointer">
           <Upload size={20} className="mr-2" />
           Upload Image
           <input
