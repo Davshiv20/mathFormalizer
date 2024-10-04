@@ -1,17 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { processMathSolution } from "../services/api";
+import axios from "axios";
 
 export const processSolution = createAsyncThunk(
   "math/processSolution",
-  async (input, { rejectWithValue }) => {
+  async ({ question, answer }, { rejectWithValue }) => {
     try {
-      const response = await processMathSolution(input);
-      // console.log(JSON.parse(response.solution));
-      return JSON.parse(response.solution);
+      const response = await processMathSolution(question, answer);
+      console.log("Full response:", response);
+      console.log("response:", response.solution);
+      return typeof response.solution === "string"
+        ? JSON.parse(response.solution)
+        : response.solution;
     } catch (error) {
+      console.log("Error details:", error);
       return rejectWithValue(
         error.response
-          ? error.response.data
+          ? error.response.data.error
           : "An error occurred Please try again"
       );
     }

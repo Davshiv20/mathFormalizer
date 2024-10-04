@@ -2,11 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
 const axios = require("axios");
+const { parse } = require("dotenv");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limit: "10mb" })); // Increased limit for larger images
+app.use(express.json({ limit: "10mb" }));
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,7 +16,7 @@ const openai = new OpenAI({
 // OpenAI route
 app.post("/api/process-math", async (req, res) => {
   try {
-    const { input } = req.body;
+    const { question, answer } = req.body;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o",
@@ -27,12 +28,25 @@ app.post("/api/process-math", async (req, res) => {
         },
         {
           role: "user",
-          content: `Process this math problem and provide a structured solution in form of json collection where each document represents a step in the solution and the fields should be step, then description and then an equation representing the description : ${input}. Give no other text other than the response that consists of only an array of json documents that contain 3 fields step, description and equation`,
+          content: `Question: ${question}\nAnswer: ${answer}\n\nProcess this math problem and provide a structured solution in form of json collection where each document represents a step in the solution and the fields should be step, then description and then an equation representing the description. Give no other text other than the response that consists of only an array of json documents that contain 3 fields step, description and equation`,
         },
       ],
     });
-    console.log(completion.choices[0].message.content);
-    res.json({ solution: completion.choices[0].message.content });
+
+    console.log("Question:", question);
+    console.log("Answer:", answer);
+    console.log("OpenAI Response:", completion.choices[0].message.content);
+    let cleanedResponse = completion.choices[0].message.content.trim();
+    if (cleanedResponse.startsWith("```json")) {
+      cleanedResponse = cleanedResponse
+        .replace("```json", "")
+        .replace("```", "")
+        .trim();
+    }
+
+    const parsedSolution = JSON.parse(cleanedResponse);
+
+    res.json({ solution: parsedSolution });
   } catch (error) {
     console.error("Error processing math solution:", error);
     res
@@ -41,7 +55,6 @@ app.post("/api/process-math", async (req, res) => {
   }
 });
 
-// MathPix route
 app.post("/api/mathpix", async (req, res) => {
   const { image } = req.body;
 
