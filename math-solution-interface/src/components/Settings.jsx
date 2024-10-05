@@ -39,10 +39,7 @@ const Settings = ({ isOpen, onClose }) => {
             <option value="gpt-4o">GPT-4o </option>
             <option value="gpt-4o-mini">GPT-4o Mini </option>
             <option value="gpt-3.5-turbo">GPT-3.5 Turbo </option>
-            <option value="gpt-3.5-turbo-16k">
-              GPT-3.5 Turbo 16k 
-            </option>
-            
+            <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k</option>
           </select>
         </div>
         <div className="mb-6">
@@ -71,7 +68,7 @@ const Settings = ({ isOpen, onClose }) => {
             onClick={onClose}
             className="px-6 py-3 bg-gray-300 rounded-full hover:bg-gray-400 transition duration-200 transform hover:scale-105"
           >
-           Back
+            Back
           </button>
           <button
             onClick={handleSave}
