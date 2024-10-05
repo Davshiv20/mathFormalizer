@@ -9,6 +9,8 @@ const StructuredSolution = () => {
 
   if (isLoading) return <p>Processing...</p>;
   if (error) return <p>Error: {error}</p>;
+  // if (!structuredSolution || structuredSolution.length === 0)
+  //   return <p>No solution available</p>;
   // console.log(structuredSolution);
   return (
     <div className="lg:h-[95%]">
@@ -17,8 +19,10 @@ const StructuredSolution = () => {
           structuredSolution.map((step, index) => (
             <SingleStep
               key={index}
-              description={step.description}
-              expression={step.equation}
+              description={step.description || `Step ${step.step || index + 1}`}
+              expression={
+                step.equation || step.expression || "No equation provided"
+              }
             />
           ))}
       </div>

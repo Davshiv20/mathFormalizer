@@ -9,17 +9,20 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
 // OpenAI route
 app.post("/api/process-math", async (req, res) => {
   try {
-    const { question, answer } = req.body;
+    const { question, answer, apiKey, model } = req.body;
+    const openai = new OpenAI({
+      apiKey: apiKey || process.env.OPENAI_API_KEY,
+    });
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: model || "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
@@ -32,7 +35,7 @@ app.post("/api/process-math", async (req, res) => {
         },
       ],
     });
-
+    console.log("Model:",model);
     console.log("Question:", question);
     console.log("Answer:", answer);
     console.log("OpenAI Response:", completion.choices[0].message.content);

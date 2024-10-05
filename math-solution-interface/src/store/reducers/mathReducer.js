@@ -1,4 +1,4 @@
-// src/store/reducers/mathReducer.js
+
 import { SET_INPUT } from '../actionTypes';
 
 const initialState = {

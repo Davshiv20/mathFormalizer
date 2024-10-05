@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setInput, setQuestion, processSolution } from "../features/mathSlice";
+import { setInput, setQuestion } from "../features/mathSlice";
 import { Camera } from "react-camera-pro";
-import { Camera as CameraIcon, Upload, X } from "lucide-react";
+import Settings from "./Settings";
+import { Cog, Camera as CameraIcon, Upload, X } from "lucide-react";
 import axios from "axios";
 
 const MathInput = () => {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const dispatch = useDispatch();
   const { input, question, isLoading, structuredSolution, error } = useSelector(
     (state) => state.math
@@ -56,6 +58,12 @@ const MathInput = () => {
 
   return (
     <div className="bg-white p-8 pb-2 rounded-lg w-full h-[85%] overflow-x-auto">
+      <button
+        onClick={() => setIsSettingsOpen(true)}
+        className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full"
+      >
+        <Cog size={24} />
+      </button>
       <h1 className="text-xl font-bold py-6">Enter Question:</h1>
       <textarea
         className="w-full p-2 border rounded mb-4 shadow-md"
@@ -117,6 +125,10 @@ const MathInput = () => {
       >
         {isLoading ? 'Converting...' : 'Convert'}
       </button> */}
+      <Settings
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </div>
   );
 };
