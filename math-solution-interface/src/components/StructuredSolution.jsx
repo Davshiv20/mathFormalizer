@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import SingleStep from "./SingleStep";
 
-
 const Spinner = () => (
   <div className="flex justify-center items-center h-full">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-y-blue-500"></div>
@@ -24,8 +23,10 @@ const StructuredSolution = () => {
           structuredSolution.map((step, index) => (
             <SingleStep
               key={index}
-              description={step.description || `Step ${step.step || index + 1}`}
-              expression={
+              initialDescription={
+                step.description || `Step ${step.step || index + 1}`
+              }
+              initialExpression={
                 step.equation || step.expression || "No equation provided"
               }
             />
