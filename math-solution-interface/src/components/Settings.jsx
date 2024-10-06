@@ -22,7 +22,7 @@ const Settings = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0  bg-blur- flex justify-center items-center z-50">
+    <div className="fixed inset-0  bg-blur- flex justify-center items-center z-50 backdrop-blur">
       <div className="bg-white p-8 rounded-3xl shadow-2xl w-2/3  relative overflow-hidden">
         <h2 className="text-3xl font-bold mb-6"> Settings</h2>
         <div className="mb-6">

@@ -57,14 +57,14 @@ const MathInput = () => {
   };
 
   return (
-    <div className="bg-white p-8 pb-2 rounded-lg w-full h-[85%] overflow-x-auto">
+    <div className="bg-white p-8 pt-2 pb-2 rounded-lg w-full h-[85%] overflow-x-auto">
       <button
         onClick={() => setIsSettingsOpen(true)}
         className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full"
       >
         <Cog size={24} />
       </button>
-      <h1 className="text-xl font-bold py-6">Enter Question:</h1>
+      <h1 className="text-xl font-bold pt-6 pb-2">Enter Question:</h1>
       <textarea
         className="w-full p-2 border rounded mb-4 shadow-md"
         value={question}
@@ -72,7 +72,7 @@ const MathInput = () => {
         placeholder="Enter your math problem question"
         rows="2"
       />
-      <h1 className="text-xl font-bold py-6">Enter Solution: </h1>
+      <h1 className="text-xl font-bold pt-3 pb-2">Enter Solution: </h1>
       <textarea
         className="w-full p-2 border rounded mb-4 shadow-md"
         value={input}
