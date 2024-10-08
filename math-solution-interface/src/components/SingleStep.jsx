@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Pencil, Save } from "lucide-react";
 
-function SingleStep({ initialDescription, initialExpression }) {
+function SingleStep({
+  initialDescription,
+  initialExpression,
+  correctness,
+  reason,
+}) {
   const [description, setDescription] = useState(initialDescription);
   const [expression, setExpression] = useState(initialExpression);
   const [isEditing, setIsEditing] = useState(false);
+  const [isModified, setIsModified] = useState(false);
   const textareaRefDesc = useRef(null);
   const textareaRefExpr = useRef(null);
 
@@ -14,6 +20,24 @@ function SingleStep({ initialDescription, initialExpression }) {
 
   const handleSaveClick = () => {
     setIsEditing(false);
+    if (
+      expression.trim() === initialExpression &&
+      description.trim() === initialDescription
+    ) {
+      setIsModified(false);
+    }
+  };
+
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value;
+    setDescription(newDescription);
+    setIsModified(true);
+  };
+
+  const handleExpressionChange = (e) => {
+    const newExpression = e.target.value;
+    setExpression(newExpression);
+    setIsModified(true);
   };
 
   const adjustTextareaHeight = (textarea) => {
@@ -31,7 +55,15 @@ function SingleStep({ initialDescription, initialExpression }) {
   }, [isEditing, description, expression]);
 
   return (
-    <div className="w-[97%] p-2 border-2 rounded-xl m-2 relative">
+    <div
+      className={`w-[97%] p-2 border-2 rounded-xl m-2 relative ${
+        isModified
+          ? "bg-yellow-300"
+          : correctness
+          ? "bg-green-100"
+          : "bg-red-100"
+      }`}
+    >
       {isEditing ? (
         <div className="flex w-full">
           <div className="w-11/12">
@@ -43,7 +75,7 @@ function SingleStep({ initialDescription, initialExpression }) {
                 <textarea
                   ref={textareaRefDesc}
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={handleDescriptionChange}
                   className="border-2 rounded p-1 w-full"
                   placeholder="Enter description..."
                 />
@@ -57,7 +89,7 @@ function SingleStep({ initialDescription, initialExpression }) {
                 <textarea
                   ref={textareaRefExpr}
                   value={expression}
-                  onChange={(e) => setExpression(e.target.value)}
+                  onChange={handleExpressionChange}
                   className="border-2 rounded p-1 w-full"
                   placeholder="Enter expression..."
                 />
@@ -65,7 +97,7 @@ function SingleStep({ initialDescription, initialExpression }) {
             </div>
           </div>
           <div className="flex justify-end mt-2 w-1/12">
-            <button onClick={handleSaveClick} className="text-green-500">
+            <button onClick={handleSaveClick} className="text-black ">
               <Save className="inline-block" />
             </button>
           </div>
@@ -84,6 +116,12 @@ function SingleStep({ initialDescription, initialExpression }) {
                 <span className="font-bold break-all">Expression: </span>
               </div>
               <div className="w-9/12 break-all">{expression}</div>
+            </div>
+            <div className="flex gap-1">
+              <div className="w-3/12">
+                <span className="font-bold break-all">Reason: </span>
+              </div>
+              <div className="w-9/12 break-all">{reason}</div>
             </div>
           </div>
           <div className="w-1/12 flex align-middle justify-center">

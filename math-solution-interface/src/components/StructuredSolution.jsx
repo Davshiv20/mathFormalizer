@@ -29,6 +29,8 @@ const StructuredSolution = () => {
               initialExpression={
                 step.equation || step.expression || "No equation provided"
               }
+              correctness={step.correct}
+              reason={step.reason}
             />
           ))}
       </div>
