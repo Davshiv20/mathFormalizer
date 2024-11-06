@@ -3,12 +3,13 @@ import { Pencil, Save } from "lucide-react";
 
 function SingleStep({
   initialDescription,
-  initialExpression,
+  initialCorrectExpression,
+  initialIncorrectExpression,
   correctness,
   reason,
 }) {
   const [description, setDescription] = useState(initialDescription);
-  const [expression, setExpression] = useState(initialExpression);
+  const [expression, setExpression] = useState(initialIncorrectExpression);
   const [isEditing, setIsEditing] = useState(false);
   const [isModified, setIsModified] = useState(false);
   const textareaRefDesc = useRef(null);
@@ -21,7 +22,7 @@ function SingleStep({
   const handleSaveClick = () => {
     setIsEditing(false);
     if (
-      expression.trim() === initialExpression &&
+      expression.trim() === initialIncorrectExpression &&
       description.trim() === initialDescription
     ) {
       setIsModified(false);
