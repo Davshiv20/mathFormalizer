@@ -26,8 +26,11 @@ const StructuredSolution = () => {
               initialDescription={
                 step.description || `Step ${step.step || index + 1}`
               }
-              initialExpression={
-                step.equation || step.expression || "No equation provided"
+              initialCorrectExpression={
+                step.correct_solution || "No equation provided"
+              }
+              initialIncorrectExpression={
+                step.given_solution || "No equation provided"
               }
               correctness={step.correct}
               reason={step.reason}
