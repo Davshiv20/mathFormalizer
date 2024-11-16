@@ -2,18 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
 const axios = require("axios");
-const { parse } = require("dotenv");
+const { parse } = require("dotenv");  
 require("dotenv").config();
 const { z } = require("zod");
 const { zodResponseFormat } = require("openai/helpers/zod");
-
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
-// const openai = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
 
 const Step = z.object({
   step: z.string(),
